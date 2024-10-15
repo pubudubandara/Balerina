@@ -12,6 +12,7 @@ import ProfilePage from './Components/Profilepage/Profilepage';
 import Seller from './Components/Seller/seller';
 import BookingForm from './Components/Book/Book';
 import AboutUs from './Components/AboutUs/AboutUs';
+import TaskerDetails from './Components/TaskerDetails';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/profilepage" element={<ProfilePage />} />  {/* Profile page */}
           <Route path="/seller" element={<Seller />} />
           <Route path="/book" element={<BookingForm />} />
+          <Route path="/tasker-details" element={<TaskerDetails />} />
           {/* Add more routes as needed */}
         </Routes>
 

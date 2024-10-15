@@ -1,5 +1,5 @@
 const express = require('express');
-const Tasker = require('../models/Tasker');
+const Tasker = require('../models/Tasker'); // Import Tasker model
 const router = express.Router();
 
 // Create a new tasker
@@ -14,9 +14,9 @@ router.post('/', async (req, res) => {
 });
 
 // Get all taskers
-router.get('/taskers', async (req, res) => {
+router.get('/', async (req, res) => {  // Ensure this route is '/'
   try {
-    const taskers = await Tasker.find();
+    const taskers = await Tasker.find();  // Fetch all taskers from DB
     res.status(200).json(taskers);
   } catch (err) {
     res.status(500).json({ message: 'Error retrieving taskers', error: err });

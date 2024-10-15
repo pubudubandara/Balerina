@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './TaskerForm.css';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
 const TaskerForm = () => {
@@ -16,7 +15,7 @@ const TaskerForm = () => {
     category: ''
   });
 
-  const navigate = useNavigate();  // Initialize the useNavigate hook
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,14 +24,14 @@ const TaskerForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5001/api/taskers', {
+      const response = await fetch('http://localhost:5000/api/taskers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
       if (response.ok) {
         alert('You are a Tasker now!');
-        navigate('/seller');  // Redirect to Seller page after successful signup
+        navigate('/tasker-details', { state: { formData } });  // Redirect and pass form data
       } else {
         alert('Error submitting application');
       }
@@ -135,19 +134,6 @@ const TaskerForm = () => {
         </select>
 
         <button type="submit">Submit Application</button>
-        <button type="reset" onClick={() => setFormData({
-          fullName: '',
-          email: '',
-          phoneNumber: '',
-          addressLine1: '',
-          addressLine2: '',
-          city: '',
-          stateProvince: '',
-          postalCode: '',
-          country: '',
-          category: ''
-        })}>Reset Form</button>
-        <p>Your information will be kept private.</p>
       </form>
     </div>
   );
