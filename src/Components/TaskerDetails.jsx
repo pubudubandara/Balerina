@@ -1,56 +1,53 @@
 import React, { useEffect, useState } from 'react';
 
 const TaskerDetails = () => {
-  const [taskers, setTaskers] = useState([]);  // State to hold fetched taskers
-  const [error, setError] = useState(null);  // State to handle errors
+  const [tasker, setTasker] = useState(null);  // State for a single tasker
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTaskers = async () => {
+    const fetchTasker = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/taskers'); // Fetch data from the backend
+        const response = await fetch('http://localhost:5000/api/taskers/recent'); // Fetch the most recent tasker
         if (!response.ok) {
           if (response.status === 404) {
-            throw new Error('Taskers not found');
+            throw new Error('No recent tasker found');
           } else {
-            throw new Error('Failed to fetch taskers');
+            throw new Error('Failed to fetch tasker');
           }
         }
         const data = await response.json();
-        setTaskers(data);  // Set taskers data to state
+        setTasker(data);  // Set the single tasker in state
       } catch (err) {
         setError(err.message);
       }
     };
 
-    fetchTaskers();  // Call fetchTaskers when component mounts
-  }, []);  // Empty array ensures the effect runs only once
+    fetchTasker();
+  }, []);  // Run this once after the component mounts
 
   if (error) {
-    return <p>Error: {error}</p>;  // Display error message
+    return <p>Error: {error}</p>;
   }
 
-  if (taskers.length === 0) {
-    return <p>No taskers available.</p>;  // Handle case when no taskers exist
+  if (!tasker) {
+    return <p>No tasker available.</p>;
   }
 
   return (
     <div>
-      <h1>Tasker Details</h1>
-      {taskers.map((tasker) => (
-        <div key={tasker._id}>
-          <p><strong>Full Name:</strong> {tasker.fullName}</p>
-          <p><strong>Email:</strong> {tasker.email}</p>
-          <p><strong>Phone Number:</strong> {tasker.phoneNumber}</p>
-          <p><strong>Address Line 1:</strong> {tasker.addressLine1}</p>
-          <p><strong>Address Line 2:</strong> {tasker.addressLine2}</p>
-          <p><strong>City:</strong> {tasker.city}</p>
-          <p><strong>State/Province:</strong> {tasker.stateProvince}</p>
-          <p><strong>Postal Code:</strong> {tasker.postalCode}</p>
-          <p><strong>Country:</strong> {tasker.country}</p>
-          <p><strong>Category:</strong> {tasker.category}</p>
-          <hr />
-        </div>
-      ))}
+      <h1>Recent Tasker Details</h1>
+      <div key={tasker._id}>
+        <p><strong>Full Name:</strong> {tasker.fullName}</p>
+        <p><strong>Email:</strong> {tasker.email}</p>
+        <p><strong>Phone Number:</strong> {tasker.phoneNumber}</p>
+        <p><strong>Address Line 1:</strong> {tasker.addressLine1}</p>
+        <p><strong>Address Line 2:</strong> {tasker.addressLine2}</p>
+        <p><strong>City:</strong> {tasker.city}</p>
+        <p><strong>State/Province:</strong> {tasker.stateProvince}</p>
+        <p><strong>Postal Code:</strong> {tasker.postalCode}</p>
+        <p><strong>Country:</strong> {tasker.country}</p>
+        <p><strong>Category:</strong> {tasker.category}</p>
+      </div>
     </div>
   );
 };
