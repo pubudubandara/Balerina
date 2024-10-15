@@ -1,6 +1,8 @@
 .about{
     background: rgb(40,220,79);
-    background: linear-gradient(108deg, rgba(40,220,79,1) 0%, rgba(14,94,32,1) 71%, rgba(14,82,29,1) 100%);  100%); 
+    background: linear-gradient(108deg, rgba(40,220,79,1) 0%, rgba(14,94,32,1) 71%, rgba(14,82,29,1) 100%);
+    padding:  50px; 
+    
 }
 .logo {
     font-size: 24px;
